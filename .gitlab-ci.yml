@@ -1,0 +1,10 @@
+deploy_prod:
+  stage: deploy
+  image: line/kubectl-kustomize:latest
+  script:
+    - kubectl kustomize environments/prod > all-in-one.yaml
+    - cat all-in-one.yaml
+    - envsubst < all-in-one.yaml > applied-manifests.yaml
+    - cat applied-manifests.yaml
+  environment:
+    name: prod

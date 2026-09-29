@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tempo-ingress
+  namespace: monitoring
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: rate-limit-login@file
+spec:
+  rules:
+    - host: monitoring.localhost
+      http:
+        paths:
+          - path: /tempo
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tempo-service
+                port:
+                  number: 3200

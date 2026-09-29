@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+resources:
+  - ./grafana-deployment.yaml
+  - ./grafana-service.yaml
+  - ./grafana-ingress.yaml
+  - ./grafana-persistent-volume.yaml
